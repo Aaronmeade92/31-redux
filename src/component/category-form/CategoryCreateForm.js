@@ -4,31 +4,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import {createCategory, updateCategory, destroyCategory} from '../../actions/actions.js';
-import CategoryItem from '../category-item/CategoryItem.js';
 
 class CategoryCreateForm extends Component {
 
     constructor(props) {
         super(props);
         this.defaultState = {
-        id: uuid(),
-        timestamp: '',
-        name: '',
-        budget: 0,
-        content: '',
-        title: '',
+            name: '',
+            budget: 0,
         };
-        this.state = {...this.defaultState};
+        const initialState = this.props.category || this.defaultState;
+
+        this.state =  {...initialState};
     }
 
 
     onSubmit = e => {
         e.preventDefault();
         this.props.onComplete(this.state);
-        console.log(this.state.name);
-        this.setState({
-            name: ''
-        })
+        this.setState({...this.defaultState});
     };
 
     onChange = e => {
@@ -43,19 +37,13 @@ class CategoryCreateForm extends Component {
         return(
             <React.Fragment>
             <form onSubmit={this.onSubmit} onChange={this.onChange}>
-                <input name='title' placeholder='title' value={this.state.name} /><br/>
-                <textarea
-                    name='content'
-                    placeholder='content'
-                    
-                /><br/>
+                <input name='title' placeholder='title' value={this.state.id} /><br/>
                 <label>
                     <span></span>
                     <input name='budget' type='number' placeholder='0'/>
                 </label>
                 <button >Create Category</button>
             </form>
-            <CategoryItem />
             </React.Fragment>
         )
     }

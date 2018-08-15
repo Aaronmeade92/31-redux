@@ -5,20 +5,21 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { createCategory, updateCategory, destroyCategory} from '../../actions/actions.js';
 import CategoryCreateForm from '../category-form/CategoryCreateForm.js';
 import CategoryItem from '../category-item/CategoryItem.js';
+import CategoryList from '../category-list/CategoryList.js';
 
 const Dashboard = props => {
     return(
         <Fragment>
-           <CategoryCreateForm onComplete={createCategory}/>
-           <CategoryItem category={props.category} onComplete={props.updateCategory} onRemove={props.destroyCategory} />
+           <CategoryCreateForm onComplete={props.createCategory} />
+           <CategoryList categories={props.cate} onComplete={props.updateCategory} onDelete={props.destroyCategory}/>
         </Fragment>
     )
 };
 
-const mapStateToProps = (state) => ({category: state});
+const mapStateToProps = (state) => ({categories: state});
 
 const mapDispatchToProps = (dispatch) => ({
-    addCategory: category => dispatch(createCategory(category)),
+    createCategory: category => dispatch(createCategory(category)),
     updateCategory: category => dispatch(updateCategory(category)),
     destroyCategory: category => dispatch(destroyCategory(category)),
 });
@@ -27,6 +28,6 @@ Dashboard.propTypes = {
     createCategory: PropTypes.func,
     updateCategory: PropTypes.func,
     destroyCategory: PropTypes.func,
-    category: PropTypes.array,
+    categories: PropTypes.array,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
