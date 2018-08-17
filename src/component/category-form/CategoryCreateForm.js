@@ -22,10 +22,12 @@ class CategoryCreateForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         this.props.onComplete(this.state);
-        this.setState({...this.defaultState});
+        this.setState({
+            id: uuid(),
+        });
     };
 
-    onChange = e => {
+    onChange = event => {
         const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         const changedBit = {
             [event.target.name]: val
@@ -37,7 +39,7 @@ class CategoryCreateForm extends Component {
         return(
             <React.Fragment>
             <form onSubmit={this.onSubmit} onChange={this.onChange}>
-                <input name='title' placeholder='title' value={this.state.id} /><br/>
+                <input name='name' placeholder='title' value={this.state.name} /><br/>
                 <label>
                     <span></span>
                     <input name='budget' type='number' placeholder='0'/>

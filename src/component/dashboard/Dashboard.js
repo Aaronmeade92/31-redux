@@ -11,7 +11,7 @@ const Dashboard = props => {
     return(
         <Fragment>
            <CategoryCreateForm onComplete={props.createCategory} />
-           <CategoryList categories={props.cate} onComplete={props.updateCategory} onDelete={props.destroyCategory}/>
+           <CategoryList categories={props.categories} onComplete={props.updateCategory} onRemove={props.destroyCategory}/>
         </Fragment>
     )
 };
