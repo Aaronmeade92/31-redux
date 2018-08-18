@@ -1,14 +1,7 @@
-let initialState = [{
-        name: 'test',
-        budget: 0,
-}];
+let initialState = [];
 
 
 export default (state=initialState, action) => {
-
-    if(initialState === undefined){
-        return initialState;
-    }
 
     let {type, payload} = action;
 

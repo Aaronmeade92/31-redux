@@ -23,13 +23,20 @@ class CategoryItem extends Component {
         console.log('deleted', this.props.category);
     }
 
+    onCancel = () => {
+        this.setState({
+            editing: false
+        })
+    }
+
+
     render(){
         return(
             <div>
                 <span onDoubleClick={this.showEditForm}>Category:{this.props.category.name}</span><br/>
                 <span>Budget:{this.props.category.budget}</span><br/>
                 <button onClick={this.deleteCategory}>X</button>
-                {this.state.editing && <CategoryUpdate onComplete={this.props.onComplete} onUpdate={this.props.onUpdate} category={this.props.category} />}
+                {this.state.editing && <CategoryUpdate onComplete={this.props.onComplete} onUpdate={this.props.onUpdate} category={this.props.category} onCancel={this.onCancel} />}
             </div>
         );
     }

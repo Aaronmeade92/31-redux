@@ -5,35 +5,34 @@ import { connect } from 'react-redux';
 
 
 class CategoryUpdate extends Component {
+    constructor(props) {
+        super(props)
+        this.state = this.props.category;
+    }
 
     updateCategory = (event) => {
         event.preventDefault();
-        console.log(this.state);
-        this.props.onUpdate(this.state.name);
-        this.setState({
-            name: this.state.name
-        })
+        this.props.onUpdate(this.state);
     }
 
     onChange = event => {
-        console.log(event.target)
         const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-        const changedBit = {
+
+        this.setState({
             [event.target.name]: val
-        };
-        this.setState(changedBit)
+        })
     };
 
     render() {
         return(
-            <form onSubmit={this.updateCategory}>
+            <form onSubmit={this.updateCategory} onChange={this.onChange}>
                 <h3>Edit Form</h3>
-                <input name='name' placeholder='title' onChange={this.onChange} /><br/>
+                <input name='name' placeholder='title'/><br/>
                 <label>
-                    <span></span>
                     <input name='budget' type='number' placeholder='0'/>
                 </label><br/>
                 <button >Edit Category</button>
+                <button onClick={this.props.onCancel} >Cancel</button>
             </form>
         )
     };

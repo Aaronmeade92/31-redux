@@ -20,12 +20,8 @@ class CategoryCreateForm extends Component {
 
 
     onSubmit = e => {
-        console.log(this.props.category);
         e.preventDefault();
         this.props.onComplete(this.state);
-        this.setState({
-            id: uuid(),
-        });
     };
 
     onChange = event => {
