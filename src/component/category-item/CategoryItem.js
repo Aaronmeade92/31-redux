@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CategoryCreateForm from '../category-form/CategoryCreateForm.js';
+import CategoryUpdate from '../category-update/CategoryUpdate.js';
 import {createCategory, updateCategory, destroyCategory} from '../../actions/actions.js';
+import { connect } from 'react-redux';
 
 
-export default class CategoryItem extends Component {
+class CategoryItem extends Component {
 
     state = {
         editing: false,
@@ -25,10 +26,10 @@ export default class CategoryItem extends Component {
     render(){
         return(
             <div>
-                <span onClick={this.showEditForm}>Category:{this.props.category.name}</span><br/>
+                <span onDoubleClick={this.showEditForm}>Category:{this.props.category.name}</span><br/>
                 <span>Budget:{this.props.category.budget}</span><br/>
                 <button onClick={this.deleteCategory}>X</button>
-                {this.state.editing && <CategoryCreateForm onComplete={props.addCategory} buttonText='update' category={this.props.category} />}
+                {this.state.editing && <CategoryUpdate onComplete={this.props.onComplete} onUpdate={this.props.onUpdate} category={this.props.category} />}
             </div>
         );
     }
@@ -36,6 +37,17 @@ export default class CategoryItem extends Component {
 
 CategoryItem.propTypes = {
     onComplete: PropTypes.func,
+    onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
     category: PropTypes.object,
 }
+
+const mapStateToProps = (state) => ({categories: state});
+
+const mapDispatchToProps = (dispatch) => ({
+    createCategory: category => dispatch(createCategory(category)),
+    updateCategory: category => dispatch(updateCategory(category)),
+    destroyCategory: category => dispatch(destroyCategory(category)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryItem);

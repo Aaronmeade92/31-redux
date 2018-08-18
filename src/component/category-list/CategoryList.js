@@ -8,7 +8,7 @@ const CategoryList = props => {
 
     return(
     <ul>
-    {props.categories.map(category => <CategoryItem key={category.id} category={category} onComplete={updateCategory} onRemove={props.onRemove} />)}
+    {props.categories.map(category => <CategoryItem key={category.id} category={category} onComplete={props.onComplete} onRemove={props.onRemove} onUpdate={props.onUpdate}/>)}
     </ul>
     )
 
