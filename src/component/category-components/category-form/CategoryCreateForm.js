@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import {createCategory, updateCategory, destroyCategory} from '../../actions/actions.js';
+import {createCategory, updateCategory, destroyCategory} from '../../reducers/index';
 
 class CategoryCreateForm extends Component {
 
@@ -12,6 +12,7 @@ class CategoryCreateForm extends Component {
         this.defaultState = {
             name: '',
             budget: 0,
+            expenses: '',
         };
         const initialState = this.props.category || this.defaultState;
 
